@@ -23,7 +23,21 @@ The code is organized into several mixins, each handling specific aspects of the
    Adds a status bar to display information about the opened file.
 7. ToolBarOwner
    -
-8. MenuBarOwner
-   -
-9. TextSearcher
-   -
+   Adds a toolbar with several functionalities:
+   - undo and redo
+   - make text bold and/or italic
+   - change text color
+   - align text
+   - change text font family
+   - change text font size.
+9. MenuBarOwner
+    -
+   Adds a menu bar with sections for file and edit operations. Implements file and edit commands like new, open, save, copy, cut, paste, undo, and redo.
+11. TextSearcher
+    -
+    Provides a search and replace functionality within the text
+
+Running the Application:
+-
+To run the text editor application, run the python script. 
+
