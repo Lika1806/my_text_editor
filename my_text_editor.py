@@ -8,7 +8,7 @@ from mixins.tatus_bar import StatusBarOwner
 from mixins.tool_bar import ToolBarOwner
 from mixins.menu_bar import MenuBarOwner
 from mixins.find_replace_function import TextSearcher
-
+from mixins.spelling_checker import SpellingCheker
 
 class MyTextEditor(TextEditorABS, TextFrameOwner, FileOperator, MenuBarOwner, TextEditingOperator, StatusBarOwner, ToolBarOwner, TextSearcher):
     working_directory = os.path.dirname(os.path.abspath(__file__))
@@ -16,6 +16,7 @@ class MyTextEditor(TextEditorABS, TextFrameOwner, FileOperator, MenuBarOwner, Te
     default_dir = os.path.join(working_directory,'files_for_test')
     def add_attributes(self) -> None:
         self.add_status_bar()
+        self.add_bottom_bar()
         self.add_toolbar()
         self.add_text_frame()
         self.add_search_frame()
@@ -23,6 +24,7 @@ class MyTextEditor(TextEditorABS, TextFrameOwner, FileOperator, MenuBarOwner, Te
         self.add_menu_section('File')
         self.add_menu_section('Edit')
         self.add_toolbar_buttons()
+        self.add_spelling_check()
         
     def add_shortcuts(self):
         self.add_text_editing_shortcuts()
