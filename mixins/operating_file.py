@@ -30,7 +30,7 @@ class FileOperator:
             with open(self.working_file, 'w') as file:
                 file.write(self.text.get(1.0, END))
             return
-        self.save_as_file()
+        self.save_as_file(False)
 
     def save_as_file(self,e):
         save_file_path = filedialog.asksaveasfilename(initialdir=self.default_dir, defaultextension='.*', title = "Save file", filetypes=(('Text files', '*.txt'), ("Python files", '*.py'), ('All files', '*.*')))
