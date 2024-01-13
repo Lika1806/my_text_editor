@@ -3,7 +3,8 @@
 This is a simple text editor application implemented in Python using the Tkinter library. The application provides a graphical user interface for text editing with features like 
 - file operations, 
 - text formatting, 
-- search/replace
+- search/replace,
+- check spelling
 
 The code is organized into several mixins, each handling specific aspects of the application.
 
