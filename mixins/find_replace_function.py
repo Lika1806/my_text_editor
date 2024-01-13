@@ -5,7 +5,7 @@ from tkinter import filedialog
 
 class TextSearcher:
     def add_search_frame(self):
-        self.search_frame = Frame(self.root)
+        self.search_frame = Frame(self.bottom_bar)
         Label(self.search_frame, text = 'Find: ').pack(side = LEFT)
         self.search_text_field = Entry(self.search_frame)
         self.search_text_field.pack(side = LEFT)
@@ -21,7 +21,7 @@ class TextSearcher:
         deselect_button = Button(self.search_frame, text='Deselect', command=self.deselect)
         deselect_button.pack(side=LEFT)
         
-        self.search_frame.pack(side = BOTTOM,fill=X)
+        self.search_frame.grid(row=0)
 
 
     def find_text(self):
