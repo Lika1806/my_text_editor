@@ -21,10 +21,10 @@ class ToolBarOwner():
         self.align_button.set('left')
         self.align_button.bind("<<ComboboxSelected>>", self.align_text)
 
-        all_font_options = ['Arial', 'Times', 'Times New Roma', 'Calibri', 'Tahoma', 'Helvetica' ]
+        all_font_options = ['Arial', 'Times', 'Helvetica' ]
         self.selected_font = StringVar(self.toolbar_frame)
         self.selected_font.set(self.default_font_family)
-        font_menu = OptionMenu(self.toolbar_frame, self.selected_font, *all_font_options, command=self.change_font)
+        font_menu = OptionMenu(self.toolbar_frame, self.selected_font, *all_font_options, command=self.change_text_font)
 
 
         all_font_sizes = [i for i in range(8, 20, 2)]
@@ -43,58 +43,112 @@ class ToolBarOwner():
         size_menu.grid(row=0, column=7, pady=2)
 
     def make_bold(self):
-        bold_font = font.Font(self.text, self.text.cget("font"))
         current_tags = self.text.tag_names("sel.first")
-        bold_font.configure(weight="bold")
-        self.text.tag_configure("bold", font=bold_font)
+        bold_font = font.Font(self.text, self.text.cget("font"))
 
-        if "bold" in current_tags:
+        bold_font.configure(weight="bold")
+
+        self.text.tag_configure("bold", font=bold_font)
+        if 'italic_bold' in current_tags:
+            self.text.tag_remove('italic_bold', "sel.first", "sel.last")      
+            self.make_italic() 
+        elif "bold" in current_tags:
             self.text.tag_remove("bold", "sel.first", "sel.last")
+        elif 'italic' in current_tags:
+            self.text.tag_remove('italic', "sel.first", "sel.last")
+            self.make_italic_bold()
+            return
         else:
             self.text.tag_add("bold", "sel.first", "sel.last")
 
     def make_italic(self):
-        italic_font = font.Font(self.text, self.text.cget("font"))
-        italic_font.configure(slant = "italic")
-        self.text.tag_configure("italic", font=italic_font)
         current_tags = self.text.tag_names("sel.first")
+        italic_font = font.Font(self.text, self.text.cget("font"))
+
+        italic_font.configure(slant = "italic")
+
+        self.text.tag_configure("italic", font=italic_font)
+
+        if 'italic_bold' in current_tags:
+            self.text.tag_remove('italic_bold', "sel.first", "sel.last")      
+            self.make_bold() 
         if "italic" in current_tags:
             self.text.tag_remove("italic", "sel.first", "sel.last")
+        elif 'bold' in current_tags:
+            self.text.tag_remove('bold', "sel.first", "sel.last")
+            self.make_italic_bold()
         else:
             self.text.tag_add("italic", "sel.first", "sel.last")
 
-    def change_font(self, e):
-        new_font = self.selected_size.get()
-        this_font = font.Font(self.text, self.text.cget('font'))
-        this_font.configure(family = new_font)
-        self.text.tag_configure(f'font_tag', font = this_font)
-        current_configs = self.text.tag_names('sel.first')
-        if 'font_tag' in current_configs:
-            self.text.tag_remove('font_tag', 'sel.first', 'sel.last')
-        else:
-            self.text.tag_add('font_tag', 'sel.first', 'sel.last')
+    def make_italic_bold(self):
+        current_tags = self.text.tag_names("sel.first")
+        italic_bold_font = font.Font(self.text, self.text.cget("font"))
+
+        italic_bold_font.configure(weight="bold", slant='italic')
+
+        self.text.tag_configure('italic_bold', font = italic_bold_font)
+        
+        if 'bold' in current_tags:
+            self.text.tag_remove("bold", "sel.first", "sel.last")
+        if 'italic' in current_tags:
+            self.text.tag_remove("italic", "sel.first", "sel.last")
+        self.text.tag_add('italic_bold', "sel.first", "sel.last")
+
+    def change_selected_text_size(self, e):
+        current_tags = self.text.tag_names('sel.first')
+        new_size = self.selected_size.get()
+        sized_font = font.Font(self.text, self.text.cget('font'))
+        tag = f'sized'
+
+        sized_font.configure(size = new_size)
+
+        self.text.tag_configure(tag, font = sized_font)
+
+        if 'sized' in current_tags:
+            self.text.tag_remove(tag, 'sel.first', 'sel.last')
+        self.text.tag_add(tag, 'sel.first', 'sel.last')
 
     def change_text_size(self, e):
         new_size = self.selected_size.get()
+        self.default_font.config(size = new_size)
+
+    def change_text_font(self,e):
+        new_font = self.selected_font.get()
+        self.default_font.config(family = new_font)
+
+    def change_selected_text_font(self, e):
+        current_tags = self.text.tag_names('sel.first')
+        new_font = self.selected_font.get()
+        tag = f'font-tag'
+
         this_font = font.Font(self.text, self.text.cget('font'))
-        this_font.configure(size = new_size)
-        self.text.tag_configure(f'sized', font = this_font)
-        current_configs = self.text.tag_names('sel.first')
-        if 'sized' in current_configs:
-            self.text.tag_remove('sized', 'sel.first', 'sel.last')
-        else:
-            self.text.tag_add('sized', 'sel.first', 'sel.last')
+        this_font.configure(family = new_font)
+
+        self.text.tag_configure(tag, font = this_font)
+
+        if tag in current_tags:
+            self.text.tag_remove(tag, 'sel.first', 'sel.last')
+        print(self.text.tag_names('sel.first'))
+        self.text.tag_add(tag, 'sel.first', 'sel.last')
+        print(self.text.tag_names('sel.first'))
+
 
         
+        
     def change_text_color(self):
-        new_color = colorchooser.askcolor()[1]
-        name = f'color-{new_color}'
-        self.text.tag_configure(name, foreground = new_color)
         current_tags = self.text.tag_names("sel.first")
-        if name in current_tags:
-            self.text.tag_remove(name, "sel.first", "sel.last")
+        new_color = colorchooser.askcolor()[1]
+        tag = f'color-{new_color}'
+
+        self.text.tag_configure(tag, foreground = new_color)
+
+        if tag in current_tags:
+            self.text.tag_remove(tag, "sel.first", "sel.last")
         else:
-            self.text.tag_add(name, "sel.first", "sel.last")
+            self.text.tag_add(tag, "sel.first", "sel.last")
+
+
+
 
     def align_text(self,e):
         align = self.align_button.get()
