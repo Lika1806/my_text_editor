@@ -1,6 +1,5 @@
-# my_text_editor
-
-Text Editor Application
+my_text_editor
+#Text Editor Application
 -
 This is a simple text editor application implemented in Python using the Tkinter library. The application provides a graphical user interface for text editing with features like 
 - file operations, 
@@ -37,7 +36,7 @@ The code is organized into several mixins, each handling specific aspects of the
     -
     Provides a search and replace functionality within the text
 
-Running the Application:
+#Running the Application:
 -
 To run the text editor application, run the python script. 
 
