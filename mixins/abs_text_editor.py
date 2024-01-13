@@ -23,7 +23,9 @@ class TextEditorABS(ABC):
         image = Image.open(os.path.join(self.default_image_library,'logo.png'))
         ico = ImageTk.PhotoImage(image)
         self.root.wm_iconphoto(False, ico)
-        
+    def add_bottom_bar(self):
+        self.bottom_bar = Frame(self.root)
+        self.bottom_bar.pack(side=BOTTOM, fill=Y)
     def close(self):
         if askyesno(title = 'Close text_editor', message = 'Are you sure you want to close the program?'):
             self.root.destroy()
