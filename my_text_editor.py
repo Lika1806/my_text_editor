@@ -10,7 +10,7 @@ from mixins.menu_bar import MenuBarOwner
 from mixins.find_replace_function import TextSearcher
 from mixins.spelling_checker import SpellingCheker
 
-class MyTextEditor(TextEditorABS, TextFrameOwner, FileOperator, MenuBarOwner, TextEditingOperator, StatusBarOwner, ToolBarOwner, TextSearcher):
+class MyTextEditor(TextEditorABS, TextFrameOwner, FileOperator, MenuBarOwner, TextEditingOperator, StatusBarOwner, ToolBarOwner, TextSearcher,SpellingCheker):
     working_directory = os.path.dirname(os.path.abspath(__file__))
     default_image_library = os.path.join(working_directory,'image_library')
     default_dir = os.path.join(working_directory,'files_for_test')
