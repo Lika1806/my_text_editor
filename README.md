@@ -9,15 +9,21 @@ This is a simple text editor application implemented in Python using the Tkinter
 
 The code is organized into several mixins, each handling specific aspects of the application.
 
-1. TextFrameOwner
+1. FileOperator
    -
-2. FileOperator
+   Handles file-related operations like creat new file, open existing files, save, and save-as. Binds keybard shortcats to save and save-as operations.
+3. TextEditingOperator
    -
-3. StatusBarOwner
+   Handles text editing operations like cut, copy, past text. Binds keybard shortcats to operations.
+4. TextFrameOwner
    -
-4. ToolBarOwner
+   Manages the text frame within the editor. Includes features such as creating a text widget, adding a scroll bar, and configuring text-related settings.
+5. StatusBarOwner
    -
-5. MenuBarOwner
+   Adds a status bar to display information about the opened file.
+7. ToolBarOwner
    -
-6. TextSearcher
+8. MenuBarOwner
+   -
+9. TextSearcher
    -
