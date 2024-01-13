@@ -34,7 +34,10 @@ The code is organized into several mixins, each handling specific aspects of the
 11. TextSearcher
     -
     Provides a search and replace functionality within the text
-
+12. SpellingCheker
+    -
+    Provides the slepping check functionality
+    
 #Running the Application:
 -
 To run the text editor application, run the python script. 
