@@ -2,6 +2,7 @@ import os
 from tkinter import *
 from abc import abstractmethod, ABC
 from PIL import Image, ImageTk
+from tkinter.messagebox import askyesno
 
 class TextEditorABS(ABC):
 
@@ -10,6 +11,7 @@ class TextEditorABS(ABC):
         self.root = Tk()
         self.root.title('Text Editor')
         self.root.geometry('900x900')
+        self.root.protocol('WM_DELETE_WINDOW', self.close)
         self.add_attributes()
         self.add_shortcuts()
         self.set_icon()
@@ -21,7 +23,10 @@ class TextEditorABS(ABC):
         image = Image.open(os.path.join(self.default_image_library,'logo.png'))
         ico = ImageTk.PhotoImage(image)
         self.root.wm_iconphoto(False, ico)
-
+        
+    def close(self):
+        if askyesno(title = 'Close text_editor', message = 'Are you sure you want to close the program?'):
+            self.root.destroy()
     @abstractmethod
     def add_shortcuts(self):
         ...   
